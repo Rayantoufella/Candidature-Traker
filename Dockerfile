@@ -25,4 +25,9 @@ RUN sed -i 's|DocumentRoot /var/www/html|DocumentRoot /var/www/html/public|g' /e
 
 RUN sed -i 's|<Directory /var/www/>|<Directory /var/www/html/public/>|g' /etc/apache2/apache2.conf
 
-RUN chown -R www-data:www-data /var/www/html
+RUN sed -i 's/Listen 80/Listen 8080/' /etc/apache2/ports.conf
+
+RUN sed -i 's/APACHE_RUN_USER=www-data/APACHE_RUN_USER=#1000/' /etc/apache2/envvars
+RUN sed -i 's/APACHE_RUN_GROUP=www-data/APACHE_RUN_GROUP=#1000/' /etc/apache2/envvars
+
+USER 1000:1000
