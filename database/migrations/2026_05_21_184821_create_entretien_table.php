@@ -13,9 +13,13 @@ return new class extends Migration
     {
         Schema::create('entretien', function (Blueprint $table) {
             $table->id();
-            $table->string('resultat');
-            $table->string('type');
-            $table->timestamp('date_entretient');
+            $table->string('titre');
+            $table->text('note');
+            $table->text('description')->nullable();
+            $table->Enum('type' ,['telephone', 'visio', 'presentielle' , 'technique' ,])->default('technique');
+            $table->foreignId('candidature_id')->constrained('candidatures')->onDelete('cascade');
+            $table->enum('resultat', ['en_cours' ,'positive','negative'])->default('en_cours');
+            $table->timestamp('date_entretien');
             $table->timestamps();
         });
     }
