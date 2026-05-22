@@ -12,7 +12,7 @@ return new class extends Migration
             $table->id();
             $table->string('entreprise');
             $table->string('post');
-            $table->string('URL');
+            $table->string('URL')->nullable();
             $table->enum('status', ['to_review', 'interview_scheduled', 'offer_received', 'rejected', 'abandoned'])->default('to_review');
             $table->Enum('priorite' ,['low', 'medium', 'high'])->default('medium');
             $table->text('description')->nullable();

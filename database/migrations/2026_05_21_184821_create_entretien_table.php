@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('entretien', function (Blueprint $table) {
             $table->id();
             $table->string('titre');
-            $table->text('note');
+            $table->text('note')->nullable();
             $table->text('description')->nullable();
             $table->Enum('type' ,['telephone', 'visio', 'presentielle' , 'technique' ,])->default('technique');
             $table->foreignId('candidature_id')->constrained('candidatures')->onDelete('cascade');
