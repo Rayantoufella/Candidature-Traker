@@ -17,28 +17,12 @@ class Candidature extends Model
         'priorite',
         'description',
         'applied_at',
+        'user_id',
     ];
 
     protected $casts = [
         'applied_at' => 'date',
     ];
-
-    const STATUS_TO_REVIEW = 'to_review';
-    const STATUS_INTERVIEW_SCHEDULED = 'interview_scheduled';
-    const STATUS_OFFER_RECEIVED = 'offer_received';
-    const STATUS_REJECTED = 'rejected';
-    const STATUS_ABANDONED = 'abandoned';
-
-    public static function statuses(): array
-    {
-        return [
-            self::STATUS_TO_REVIEW => 'À examiner',
-            self::STATUS_INTERVIEW_SCHEDULED => 'Entretien planifié',
-            self::STATUS_OFFER_RECEIVED => 'Offre reçue',
-            self::STATUS_REJECTED => 'Refusé',
-            self::STATUS_ABANDONED => 'Abandonné',
-        ];
-    }
 
     public static function priorites(): array
     {
@@ -47,5 +31,26 @@ class Candidature extends Model
             'medium' => 'Moyenne',
             'high' => 'Haute',
         ];
+    }
+
+    public function getStatusAttribute($value){
+        return match($value){
+            'to_review' => 'À revoir',
+            'interview_scheduled' => 'Entretien programmé',
+            'offer_received' => 'Offre reçue',
+            'rejected' => 'Rejeté',
+            'abandoned' => 'Abandonné',
+            default => $value,
+        };
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function entretiens()
+    {
+        return $this->hasMany(Entretien::class);
     }
 }
