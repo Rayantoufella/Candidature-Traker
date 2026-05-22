@@ -34,14 +34,15 @@ class Candidature extends Model
         ];
     }
 
-    public function getStatusAttribute($value){
-        return match($value){
+    public function getStatusLabelAttribute(): string|null
+    {
+        return match($this->status){
             'to_review' => 'À revoir',
             'interview_scheduled' => 'Entretien programmé',
             'offer_received' => 'Offre reçue',
             'rejected' => 'Rejeté',
             'abandoned' => 'Abandonné',
-            default => $value,
+            default => $this->status,
         };
     }
 

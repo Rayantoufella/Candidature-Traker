@@ -17,6 +17,7 @@ return new class extends Migration
             $table->Enum('priorite' ,['low', 'medium', 'high'])->default('medium');
             $table->text('description')->nullable();
             $table->date('applied_at')->nullable();
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
     }
