@@ -47,6 +47,27 @@ class EntretienController extends Controller
             ->with('success', 'Entretien mis à jour.');
     }
 
+    public function archiver(Candidature $candidature, Entretien $entretien)
+    {
+        $entretien->archiver();
+
+        return redirect()->route('candidatures.entretiens.index', $candidature)
+            ->with('success', 'Entretien archivé.');
+    }
+
+    public function forceDelete(Candidature $candidature, Entretien $entretien)
+    {
+        $entretien->forceDelete();
+    }
+
+    public function restore(Candidature $candidature, Entretien $entretien)
+    {
+        $entretien->restore();
+
+        return redirect()->route('candidatures.entretiens.index', $candidature)
+            ->with('success', 'Entretien restauré.');
+    }
+
     public function destroy(Candidature $candidature, Entretien $entretien)
     {
         $entretien->delete();
