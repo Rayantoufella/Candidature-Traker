@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Candidature extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $fillable = [
         'entreprise',
@@ -33,14 +34,15 @@ class Candidature extends Model
         ];
     }
 
-    public function getStatusAttribute($value){
-        return match($value){
+    public function getStatusLabelAttribute(): string|null
+    {
+        return match($this->status){
             'to_review' => 'À revoir',
             'interview_scheduled' => 'Entretien programmé',
             'offer_received' => 'Offre reçue',
             'rejected' => 'Rejeté',
             'abandoned' => 'Abandonné',
-            default => $value,
+            default => $this->status,
         };
     }
 

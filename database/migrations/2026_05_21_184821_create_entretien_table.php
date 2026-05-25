@@ -13,9 +13,13 @@ return new class extends Migration
     {
         Schema::create('entretien', function (Blueprint $table) {
             $table->id();
-            $table->string('resultat');
+            $table->string('titre');
+            $table->text('note')->nullable();
+            $table->text('description')->nullable();
             $table->string('type');
-            $table->timestamp('date_entretient');
+            $table->string('resultat')->nullable();
+            $table->dateTime('date_entretien')->nullable();
+            $table->foreignId('candidature_id')->constrained('candidatures')->cascadeOnDelete();
             $table->timestamps();
         });
     }
