@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Entretien extends Model
 {
+    use SoftDeletes;
+
     protected $table = 'entretien';
 
     protected $fillable = [
@@ -28,5 +31,10 @@ class Entretien extends Model
     public function candidature()
     {
         return $this->belongsTo(Candidature::class);
+    }
+
+    public function archiver(): void
+    {
+        $this->delete();
     }
 }
