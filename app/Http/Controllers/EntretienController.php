@@ -25,7 +25,6 @@ class EntretienController extends Controller
 
     public function store(StoreEntretienRequest $request, Candidature $candidature)
     {
-
         $candidature->entretiens()->create($request->validated());
 
         return redirect()->route('candidatures.entretiens.index', $candidature)
@@ -65,6 +64,9 @@ class EntretienController extends Controller
     {
         $this->authorize('forceDelete', $entretien);
         $entretien->forceDelete();
+
+        return redirect()->route('candidatures.entretiens.index', $candidature)
+            ->with('success', 'Entretien supprimé définitivement.');
     }
 
     public function restore(Candidature $candidature, Entretien $entretien)
