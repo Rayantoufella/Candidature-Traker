@@ -2,7 +2,7 @@
 
 namespace App\Policies;
 
-use App\Models\Candidature;
+use App\Models\Entretien;
 use App\Models\User;
 
 class EntretienPolicy
@@ -12,9 +12,9 @@ class EntretienPolicy
         return true;
     }
 
-    public function view(User $user, Candidature $candidature): bool
+    public function view(User $user, Entretien $entretien): bool
     {
-        return $user->id === $candidature->user_id;
+        return $user->id === $entretien->candidature->user_id;
     }
 
     public function create(User $user): bool
@@ -22,28 +22,28 @@ class EntretienPolicy
         return true;
     }
 
-    public function update(User $user, Candidature $candidature): bool
+    public function update(User $user, Entretien $entretien): bool
     {
-        return $user->id === $candidature->user_id;
+        return $user->id === $entretien->candidature->user_id;
     }
 
-    public function delete(User $user, Candidature $candidature): bool
+    public function delete(User $user, Entretien $entretien): bool
     {
-        return $user->id === $candidature->user_id;
+        return $user->id === $entretien->candidature->user_id;
     }
 
-    public function archiver(User $user, Candidature $candidature): bool
+    public function archiver(User $user, Entretien $entretien): bool
     {
-        return $user->id === $candidature->user_id;
+        return $user->id === $entretien->candidature->user_id;
     }
 
-    public function restore(User $user, Candidature $candidature): bool
+    public function restore(User $user, Entretien $entretien): bool
     {
-        return $user->id === $candidature->user_id;
+        return $user->id === $entretien->candidature->user_id;
     }
 
-    public function forceDelete(User $user, Candidature $candidature): bool
+    public function forceDelete(User $user, Entretien $entretien): bool
     {
-        return $user->id === $candidature->user_id;
+        return $user->id === $entretien->candidature->user_id;
     }
 }
